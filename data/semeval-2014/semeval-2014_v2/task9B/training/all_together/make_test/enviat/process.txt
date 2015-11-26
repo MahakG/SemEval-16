@@ -1,0 +1,29 @@
+lhurtado@piko:~/dades/investigacio/tmp/twitter/semeval-2014/semeval-2014_v2/task9B/training/all_together/make_test/enviat$ ftp alt.qcri.org
+Connected to li655-101.members.linode.com.
+220 (vsFTPd 2.3.5)
+Name (alt.qcri.org:lhurtado): semeval2014 
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> bin
+200 Switching to Binary mode.
+ftp> cd submission
+250 Directory successfully changed.
+ftp> cd task9
+250 Directory successfully changed.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+226 Transfer done (but failed to open directory).
+ftp> bin
+200 Switching to Binary mode.
+ftp> put UPV-ELiRF.zip
+local: UPV-ELiRF.zip remote: UPV-ELiRF.zip
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+24230 bytes sent in 0.03 secs (688.2 kB/s)
+ftp> 
+
