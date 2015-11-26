@@ -1,7 +1,0 @@
-# tagging  process of Senseval2014
-
-cat twitter-train-cleansed-B_downloaded.tsv|grep -v "Not Available"|gawk '{for(i=4;i<=NF;i++) {printf("%s ",$i)} printf("\n");}'|/Users/fpla/ark-tweet-nlp-0.3.2/runTagger.sh --output-format conll|gawk '{print $1,tolower($1),$2,$3}'>twitter-train-cleansed-B_downloaded_freeling.tsv
-
-cat twitter-test-gold-B_downloaded.tsv|grep -v "Not Available"|gawk '{for(i=4;i<=NF;i++) {printf("%s ",$i)} printf("\n");}'|/Users/fpla/ark-tweet-nlp-0.3.2/runTagger.sh --output-format conll|gawk '{print $1,tolower($1),$2,$3}'>twitter-test-gold-B_downloaded_freeling.tsv 
-
-cat tweeter-dev-full-B_downloaded.tsv|grep -v "Not Available"|gawk '{for(i=4;i<=NF;i++) {printf("%s ",$i)} printf("\n");}'|/Users/fpla/ark-tweet-nlp-0.3.2/runTagger.sh --output-format conll|gawk '{print $1,tolower($1),$2,$3}'>tweeter-dev-full-B_downloaded_freeling.tsv
