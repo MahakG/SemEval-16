@@ -219,7 +219,7 @@ if __name__=='__main__':
   for line in sys.stdin:
 #    print u" ".join(tokenize(line[:-1])).encode('utf-8')
  #   text = u" ".join(tokenize(line[:-1])).encode('utf-8') /*LA BONA*/
-    line = line.decode("utf8")
+  #  line = line.decode("utf8")
     text = u" ".join(tokenize(line[:-1]))
     text1=emoticons_ES.analyze_tweet(text)
     text2=emoticons_ES.analyze_tweet(text, http=True, emo=False, arroba=True, almo=True, web=True)
@@ -227,11 +227,11 @@ if __name__=='__main__':
     text4=emoticons_ES.analyze_tweet(text, http=True, emo=True, arroba=True, almo=False, web=True)
 
 #    print emoticons.analyze_tweet(text)
-    print (text.encode('utf-8'))
-    print (text1.encode('utf-8'))
-    print (text2.encode('utf-8'))
-    print (text3.encode('utf-8'))
-    print (text4.encode('utf-8'))
+    print (text)
+    print (text1)
+    print (text2)
+    print (text3)
+    print (text4)
 #    print Simplifica3.etiqueta(text1)
     
     #print "CUR\t" + " ".join(tokenize(line[:-1]))

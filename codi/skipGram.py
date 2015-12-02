@@ -22,7 +22,7 @@ def generateSkipGramDict( tweets, n):
 
 	for k,tweet in enumerate(tweets):
 
-		tokens = word_tokenize(tweet);
+		tokens = tweet.strip().split(' ');
 		#skipGramList.append(dict());
 		
 		i = 0;
@@ -85,22 +85,25 @@ def generateSkipGramTestDict(test,skipGramDict, n):
 		Return: a Matrix with size (len(test),len(skipGramDict)) filled with the ocurrences of the skipGrams that appears in the test set.
 
 	"""
-
+	#print("Bef.",skipGramDict);
 	skipGramTestDict = copyDictOnlyKeys(skipGramDict);
-
+	#print("Aft.",skipGramDict);
+	#print("skipGramTestDict",skipGramTestDict);
 	for k,tweet in enumerate(test):
 
-		tokens = word_tokenize(tweet);
+		tokens = tweet.strip().split(' ');
 		#skipGramList.append(dict());
-		
+		#print(tokens);
 		i = 0;
 		while i < len(tokens) - (n +1) :
 
-			currentSkipGram = (tokens[i],tokens[i+n+1]);
+			currentSkipGram = (tokens[i],tokens[i+n]);
 
 			if currentSkipGram in skipGramDict:
+				#print("I'm in the skipGramDict", currentSkipGram);
 				flag = True;
 				for j,skipList in enumerate(skipGramTestDict[currentSkipGram]):
+					#print("SkipList", skipList);
 					#Check out whether the skipGram is already in the current tweet
 					if skipList[1] == k :
 
@@ -110,12 +113,14 @@ def generateSkipGramTestDict(test,skipGramDict, n):
 				#Add a new ocurrence of the skipgram
 				if flag :
 					# skipGramDict[currentSkipGram][0][2] ------> get the column of the skipgram in the matrix
+					#print(skipGramDict);
+					#print(skipGramDict[currentSkipGram]);
 					if skipGramDict[currentSkipGram] != []:
 						skipGramTestDict[currentSkipGram].append([1,k,skipGramDict[currentSkipGram][0][2]]);
 
 			i += 1;
 
-	return skipGramDict;
+	return skipGramTestDict;
 
 
 def copyDictOnlyKeys(skipGramDict) :
@@ -127,7 +132,7 @@ def copyDictOnlyKeys(skipGramDict) :
 
 	"""
 
-	result = skipGramDict;
+	result = dict();
 
 	for i in skipGramDict:
 		result[i] = [];
