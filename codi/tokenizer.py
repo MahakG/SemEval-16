@@ -26,10 +26,15 @@ target = [];
 for line in f :
 	if line != '' and line != '\n':
 		listLine = line.strip().split('\t');
+		
 		#Tokenize tweet
 		listLine[0] = u" ".join(twokenize_ES.tokenize(listLine[0][:-1]))
+		
 		#Analize tweet
-		listLine[0]=emoticons_ES.analyze_tweet(listLine[0])
+		listLine[0] = emoticons_ES.analyze_tweet(listLine[0])
+		
+		#RemovePunctuation
+		listLine[0] = u" ".join(twokenize_ES.remove_punct(listLine[0]))
 
 		tweets.append(listLine[0]);
 		target.append(listLine[1]);
@@ -41,16 +46,22 @@ test_target = [];
 for line in f_test :
 	if line != '' and line != '\n':
 		listLine = line.strip().split('\t');
+
 		#Tokenize tweet
 		listLine[0] = u" ".join(twokenize_ES.tokenize(listLine[0][:-1]))
+
 		#Analize tweet
 		listLine[0]=emoticons_ES.analyze_tweet(listLine[0])
+
+		#RemovePunctuation
+		listLine[0] = u" ".join(twokenize_ES.remove_punct(listLine[0]))
+
 		test_data.append(listLine[0]);
 		test_target.append(listLine[1]);
 
 #Vectorization of tweets into an ocurrence matrix.
 #cv = CountVectorizer(stop_words='english',ngram_range=(1,4));
-cv = CountVectorizer(ngram_range=(1,1))
+cv = CountVectorizer(ngram_range=(1,6))
 X_train_count = cv.fit_transform(tweets);
 print(X_train_count.shape);
 
@@ -62,7 +73,8 @@ X_train_count = sparse.hstack(( X_train_count,polarityCols));
 
 
 #Add columns for skip-grams
-skipGramDict = skipGram.generateSkipGramDict(tweets,1);
+skipGramDict = skipGram.getKMostFrequentSkipGrams(skipGram.generateSkipGramDict(tweets,1));
+#skipGramDict = skipGram.generateSkipGramDict(tweets,1);
 #print(tweets);
 skipGramsCols = skipGram.generateSkipGramMatrix(len(tweets), skipGramDict);
 print(len(skipGramsCols),len(skipGramsCols[0]));
@@ -77,7 +89,6 @@ print(X_train_count.shape);
 tfidf = TfidfTransformer();
 X_train_tfidf = tfidf.fit_transform(X_train_count);
 print(X_train_tfidf.shape);
-
 
 
 #Classifier
@@ -98,10 +109,10 @@ print(X_test_count.shape);
 
 
 #Add columns for skip-grams
-skipGramTestDict = skipGram.generateSkipGramTestDict(test_data,skipGramDict, 2);
+skipGramTestDict = skipGram.generateSkipGramTestDict(test_data, skipGramDict, 2);
 #print(test_data);
 #print(skipGramTestDict)
-skipGramsColsTest =  skipGram.generateSkipGramMatrix(len(test_data),  skipGramTestDict);
+skipGramsColsTest =  skipGram.generateSkipGramMatrix(len(test_data), skipGramTestDict);
 print(len(skipGramsColsTest),len(skipGramsColsTest[0]));
 #print(skipGramsColsTest);
 X_test_count = sparse.hstack(( X_test_count, skipGramsColsTest));

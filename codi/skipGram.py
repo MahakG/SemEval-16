@@ -40,7 +40,7 @@ def generateSkipGramDict( tweets, n):
 						flag = False;
 				#Add a new ocurrence of the skipgram
 				if flag :
-					skipGramDict[currentSkipGram].append([1,k,len(skipGramDict)-1]);
+					skipGramDict[currentSkipGram].append([1,k,skipGramDict[currentSkipGram][0][2]]);
 					#print(currentSkipGram);
 					#print(skipGramDict[currentSkipGram]);
 			#Add a new skipgram to the dictionary
@@ -65,13 +65,15 @@ def generateSkipGramMatrix(amount, skipGramDict) :
 				(str1,str2) ->[[frequency],[tweetIndex],[skipGramIndex]]
 	Return a matrix of size (len(tweets),len(skipGramDic)) filled with the ocurrences of the skipGrams in the tweets
 	"""
-	
+
 	result = [[0]*len(skipGramDict.keys()) for i in range(amount)];
 
 	for skip in skipGramDict:
 		for j,skipList in enumerate(skipGramDict[skip]):
-			#print(skipList);
-			result[skipGramDict[skip][j][1]][skipGramDict[skip][j][2]] = skipGramDict[skip][j][0];
+			if result[skipGramDict[skip][j][1]][skipGramDict[skip][j][2]] != 0 :
+				result[skipGramDict[skip][j][1]][skipGramDict[skip][j][2]] += skipGramDict[skip][j][0];
+			else :
+				result[skipGramDict[skip][j][1]][skipGramDict[skip][j][2]] = skipGramDict[skip][j][0];
 	return result;
 
 
@@ -136,4 +138,17 @@ def copyDictOnlyKeys(skipGramDict) :
 
 	for i in skipGramDict:
 		result[i] = [];
+	return result;
+
+def getKMostFrequentSkipGrams(skipGramDict) :
+	result = dict()
+
+	sortedSkipGramList = sorted(((sum(v[0] for v in skipGramDict[k]),k) for k in skipGramDict.keys()),reverse=True);
+	#print(sortedSkipGramList[:100]);
+	for i,skip in enumerate(sortedSkipGramList[:100]) :
+		result[skip[1]] = skipGramDict[skip[1]];
+		for v in result[skip[1]]:
+			v[2] = i;
+	
+	#print(result)
 	return result;

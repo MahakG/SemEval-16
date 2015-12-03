@@ -11,6 +11,7 @@ statistical learning with in-the-loop human evaluation :)
 __author__="brendan o'connor (anyall.org)"
 
 import re,sys
+from nltk.corpus  import stopwords
 try:
     import emoticons_ES
 except ImportError:
@@ -142,7 +143,17 @@ def tokenize(tweet):
     t.text = text
     ## print t
     t.alignments = align(t, text)
+    t = remove_stop_words(t);
     return t
+
+
+def remove_stop_words(tokens):
+  return [word for word in tokens if word not in stopwords.words('english')]
+
+def remove_punct(text):
+  tokens = text.split();
+  punctuation = """, . ¡ ! ? ¿ = ) ( / & % $ · [ ] { } - _ * ^ : \" &lt; &gt; RT ... ' """
+  return [word for word in tokens if word not in punctuation.split()]
 
 def simple_tokenize(text):
   s = text
