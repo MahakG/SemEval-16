@@ -66,27 +66,48 @@ cv = CountVectorizer(ngram_range=(1,2))
 X_train_count = cv.fit_transform(tweets);
 #print(X_train_count.shape);
 
-#
+
+
+#Add colums for amount of hashtags
+hashtagsCols = features.countHashtags(tweets)
+print("hashtagsCols: ")
+print(len(hashtagsCols),len(hashtagsCols[0]))
+X_train_count = sparse.hstack(( X_train_count, hashtagsCols))
+
+#Add colums for amount of Upper Case Words
+upperCaseWordsCols = features.countUpperCaseWords(tweets)
+print("upperCaseWordsCols: ")
+print(len(upperCaseWordsCols),len(upperCaseWordsCols[0]))
+X_train_count = sparse.hstack(( X_train_count, upperCaseWordsCols))
+
+#Add colums for amount of Elongated Words
+countElongatedCols = features.countElongated(tweets)
+print("countElongatedCols: ")
+print(len(countElongatedCols),len(countElongatedCols[0]))
+X_train_count = sparse.hstack(( X_train_count, countElongatedCols))
+
 #Add columns for polarity dictionaries
-polarityCols = polarity.countPolarity(tweets);
-print("Polarity: ");
-print(len(polarityCols),len(polarityCols[0]));
-X_train_count = sparse.hstack(( X_train_count,polarityCols));
+polarityCols = polarity.countPolarity(tweets)
+print("Polarity: ")
+print(len(polarityCols),len(polarityCols[0]))
+X_train_count = sparse.hstack(( X_train_count,polarityCols))
 
 
 
 #Add columns for skip-grams
 #skipGramDict = skipGram.getKMostFrequentSkipGrams(skipGram.generateSkipGramDict(tweets,1));
-skipGramDict = skipGram.generateSkipGramDict(tweets,1);
+#skipGramDict = skipGram.generateSkipGramDict(tweets,1)
 #print(tweets);
-skipGramsCols = skipGram.generateSkipGramMatrix(len(tweets), skipGramDict);
-print("skipGram: ");
-print(len(skipGramsCols),len(skipGramsCols[0]));
+#skipGramsCols = skipGram.generateSkipGramMatrix(len(tweets), skipGramDict)
+#print("skipGram: ")
+#print(len(skipGramsCols),len(skipGramsCols[0]))
 #print(skipGramDict);
 #print(skipGramsCols);
-X_train_count = sparse.hstack(( X_train_count, skipGramsCols));
+#X_train_count = sparse.hstack(( X_train_count, skipGramsCols))
 #X_train_count = sparse.hstack(( polarityCols, skipGramsCols));
 #print(X_train_count.shape);
+
+
 
 
 
@@ -119,14 +140,38 @@ print(X_test_count.shape);
 
 
 #Add columns for skip-grams
-skipGramTestDict = skipGram.generateSkipGramTestDict(test_data, skipGramDict, 2);
+#skipGramTestDict = skipGram.generateSkipGramTestDict(test_data, skipGramDict, 2);
 #print(test_data);
 #print(skipGramTestDict)
-skipGramsColsTest =  skipGram.generateSkipGramMatrix(len(test_data), skipGramTestDict);
-print(len(skipGramsColsTest),len(skipGramsColsTest[0]));
+#skipGramsColsTest =  skipGram.generateSkipGramMatrix(len(test_data), skipGramTestDict);
+#print(len(skipGramsColsTest),len(skipGramsColsTest[0]));
 #print(skipGramsColsTest);
-X_test_count = sparse.hstack(( X_test_count, skipGramsColsTest));
-print(X_test_count.shape);
+#X_test_count = sparse.hstack(( X_test_count, skipGramsColsTest));
+#print(X_test_count.shape);
+
+
+#Add colums for amount of hashtags
+hashtagsColsTest = features.countHashtags(test_data)
+print("hashtagsColsTest: ")
+print(len(hashtagsColsTest),1)
+
+X_test_count = sparse.hstack(( X_test_count, hashtagsColsTest))
+
+
+#Add colums for amount of Upper Case Words
+upperCaseWordsColsTest = features.countHashtags(test_data)
+print("upperCaseWordsColsTest: ")
+print(len(upperCaseWordsColsTest),len(upperCaseWordsColsTest[0]))
+
+X_test_count = sparse.hstack(( X_test_count, upperCaseWordsColsTest))
+
+
+#Add colums for amount of Elongated Words
+countElongatedColsTest = features.countElongated(test_data)
+print("countElongatedColsTest: ")
+print(len(countElongatedColsTest),len(countElongatedColsTest[0]))
+
+X_test_count = sparse.hstack(( X_test_count, countElongatedColsTest))
 
 
 #Transform ocurrences into frequencies.

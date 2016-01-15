@@ -5,7 +5,7 @@ def countHashtags(tweets):
 
 	res = []
 	for t in tweets :
-		res.append(countHashtagsInTweet(t))
+		res.append([countHashtagsInTweet(t)])
 
 	return res;
 
@@ -19,7 +19,7 @@ def countHashtagsInTweet(t):
 def countUpperCaseWords(tweets) :
 	res = []
 	for t in tweets :
-		res.append(countUpperCaseWordsInTweet(t))
+		res.append([countUpperCaseWordsInTweet(t)])
 	return res
 
 def countUpperCaseWordsInTweet(t):
@@ -42,7 +42,7 @@ def countUpperCaseWordsInTweet(t):
 def countElongated(tweets) :
 	res = []
 	for t in tweets :
-		res.append(countElongatedInTweet(t))
+		res.append([countElongatedInTweet(t)])
 	return res
 
 def countElongatedInTweet(t):
