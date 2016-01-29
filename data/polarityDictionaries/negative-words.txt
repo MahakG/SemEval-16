@@ -509,6 +509,7 @@ bully
 bullying
 bullyingly
 bum
+bummed
 bump
 bumped
 bumping
@@ -545,6 +546,8 @@ calumnies
 calumnious
 calumniously
 calumny
+cancel
+cancelled
 cancer
 cancerous
 cannibal
@@ -1395,7 +1398,7 @@ douchebags
 downbeat
 downcast
 downer
-downfall
+down
 downfallen
 downgrade
 downhearted
@@ -2794,6 +2797,7 @@ lost
 loud
 louder
 lousy
+love-cheat
 loveless
 lovelorn
 low-rated
@@ -4004,6 +4008,8 @@ spitefully
 spitefulness
 splatter
 split
+splits
+
 splitting
 spoil
 spoilage

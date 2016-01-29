@@ -25,9 +25,9 @@ def countPolarity(tweets):
 		words = tweet.strip().split(' ');
 		
 		for w in words:
-			if w in posSet:
+			if w.lower() in posSet:
 				result[i][0]+= 1;
-			if w in negSet:
+			if w.lower() in negSet:
 				result[i][1]+= 1;
 
 	return result;

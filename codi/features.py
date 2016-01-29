@@ -49,6 +49,7 @@ def countElongatedInTweet(t):
 	return len([x for x in t.split() if re.search(r'((?i)[a-z!?])\1\1+', x)])
 
 
+
 if __name__=='__main__':
 
 	print(countElongatedInTweet("sooo toooooo mmmmmmm !!!!! ;) muhahahahaha")) 
